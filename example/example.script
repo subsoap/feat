@@ -5,6 +5,7 @@ function init(self)
 	defsave.appname = "feat"
 	defsave.load("feat")
 	feat.feat_data_filename = "/example/example_data.lua"
+	feat.verbose = true
 	feat.init(self)
 end
 
