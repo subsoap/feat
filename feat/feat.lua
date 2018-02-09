@@ -4,6 +4,8 @@ local defsteam = require("defsteam.defsteam")
 local M = {}
 
 M.defsave_filename = "feat"
+M.feat_data_filename = "/example/example_data.lua"
+--M.feat_data = require("example.example_data")
 
 -- We don't want achievement data easy to edit
 -- So we use simple zlib inflate/deflate to make it
@@ -17,9 +19,12 @@ local function deflate(buffer)
 end
 
 function M.init(self)
+	M.feat_data = assert(loadstring(sys.load_resource(M.feat_data_filename)))()
+	pprint(M.feat_data)
 	if not defsave.is_loaded(M.defsave_filename) then
 		defsave.load(M.defsave_filename)
 	end
+	defsteam.init()
 end
 
 -- Resets ALL achivement and stat data

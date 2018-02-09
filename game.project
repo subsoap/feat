@@ -2,6 +2,7 @@
 title = Feat
 dependencies = https://github.com/subsoap/defsteam/archive/master.zip,https://github.com/subsoap/defsave/archive/master.zip,https://github.com/rgrams/rendercam/archive/master.zip
 bundle_resources = /res
+custom_resources = example/
 
 [library]
 include_dirs = feat
