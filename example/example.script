@@ -15,6 +15,7 @@ end
 
 function update(self, dt)
 	feat.update(self, dt)
+	feat.modify_stat("TimePlayed", dt)
 end
 
 function on_message(self, message_id, message, sender)

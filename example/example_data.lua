@@ -19,7 +19,8 @@ return {
 		FeetTraveled = 0,
 		AverageSpeed = 0,
 		Unused2 = 0,
-		MaxFeetTraveled = 0
+		MaxFeetTraveled = 0,
+		TimePlayed = 0
 	}	
 	
 }
