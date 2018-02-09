@@ -12,7 +12,7 @@ game_binding = /example/example.input_bindingc
 
 [bootstrap]
 main_collection = /example/example.collectionc
-render = /rendercam/rendercam.renderc
+render = /builtins/render/default.renderc
 
 [display]
 width = 800

@@ -38,8 +38,10 @@ function M.init(self)
 	M.stats = decompress(defsave.get(M.defsave_filename, "stats"))
 	
 	defsteam.init()
+	defsteam.userstats.RequestCurrentStats()
 	M.setup()
-	pprint(M.stats)
+	--pprint(M.stats)
+	--pprint(M.achievements)
 end
 
 -- Resets ALL achivement and stat data
@@ -59,7 +61,16 @@ function M.update(self, dt)
 end
 
 function M.check_data()
-	
+	for i,v in pairs(M.achievements) do
+		if v.stat == nil then return end
+		if v.unlocked == false and M.check_stat(v.stat, v.stat_amount) then
+			M.unlock_achievement(i)
+		end
+	end
+end
+
+function M.check_stat(stat, value)
+	if M.stats[stat] >= value then return true else return false end
 end
 
 function M.final(self)
@@ -119,10 +130,15 @@ function M.create_achievement(achievement, stat, stat_amount)
 end
 
 -- manually unlock an achivement (not linked to a stat)
-function M.unlock_achievement(achivement)
-	if M.verbose == true then print("Feat: Unlocking achievement " .. achievement) end
+function M.unlock_achievement(achievement)
 	if M.achievements[achievement] == nil then M.create_achievement(achievement) end
-	M.achievements.unlocked = true
+	if M.achievements[achievement].unlocked == true then return end
+	if M.verbose == true then print("Feat: Unlocking achievement " .. achievement) end
+	M.achievements[achievement].unlocked = true
+	
+	defsteam.userstats.SetAchievement(achievement)
+	defsteam.userstats.StoreStats()
+
 end
 
 
