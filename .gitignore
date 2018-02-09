@@ -1,0 +1,16 @@
+/.internal
+/build
+.externalToolBuilders
+.DS_Store
+Thumbs.db
+.lock-wscript
+*.pyc
+.project
+.cproject
+builtins
+/res/x86_64-linux/
+/res/x86_64-osx/
+/res/x86_64-win32/steam_api64.dll
+/res/x86-win32/steam_api.dll
+steam_api.dll
+steam_api64.dll
