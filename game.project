@@ -1,6 +1,6 @@
 [project]
 title = Feat
-dependencies = https://github.com/subsoap/defsteam/archive/master.zip,https://github.com/subsoap/defsave/archive/master.zip,https://github.com/rgrams/rendercam/archive/master.zip,https://github.com/britzl/monarch/archive/master.zip
+dependencies = https://github.com/subsoap/defsteam/archive/master.zip,https://github.com/subsoap/defsave/archive/master.zip
 bundle_resources = /res
 custom_resources = example/,feat/
 
