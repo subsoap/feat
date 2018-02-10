@@ -108,12 +108,18 @@ function M.modify_stat(stat, value)
 	if M.super_verbose == true then print("Feat: Modifying stat " .. stat  .. " with value " .. value) end
 	if M.stats[stat] == nil then M.create_stat(stat, value) return end
 	M.stats[stat].value = M.stats[stat].value + value
+
+	defsteam.userstats.SetStat(M.stats[stat].id, M.stats[stat].value)
+	defsteam.userstats.StoreStats()	
 end
 
 function M.set_stat(stat, value)
 	if M.super_verbose == true then print("Feat: Setting stat " .. stat  .. " with value " .. value) end
 	if M.stats[stat] == nil then M.create_stat(stat, value) return end
 	M.stats[stat].value = value
+
+	defsteam.userstats.SetStat(M.stats[stat].id, M.stats[stat].value)
+	defsteam.userstats.StoreStats()
 end
 
 function M.create_achievement(achievement, stat, stat_amount)
@@ -131,7 +137,7 @@ function M.create_achievement(achievement, stat, stat_amount)
 	end
 end
 
--- manually unlock an achivement (not linked to a stat)
+-- manually unlock an achivement
 function M.unlock_achievement(achievement)
 	if M.achievements[achievement] == nil then M.create_achievement(achievement) end
 	if M.achievements[achievement].unlocked == true then return end
@@ -143,5 +149,15 @@ function M.unlock_achievement(achievement)
 
 end
 
+-- You generally DON'T want to allow users to do this
+-- Use it for testing only
+function M.reset_all_stats(flag)
+	if M.verbose == true then print("Feat: Resetting all stats") end
+	flag = flag or false
+	defsteam.userstats.ResetAllStats(flag)
+	defsteam.userstats.StoreStats()
+	M.stats = {}
+	M.achievements = {}
+end
 
 return M

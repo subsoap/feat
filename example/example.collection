@@ -59,7 +59,7 @@ embedded_instances {
   "\\\"\\n"
   "  \\\"Press spacebar to add stats\\\\n"
   "\\\"\\n"
-  "  \\\"Use Steam Achievement Manager to reset 480\\\"\\n"
+  "  \\\"Press z to reset stats/achievements\\\"\\n"
   "font: \\\"/builtins/fonts/system_font.font\\\"\\n"
   "material: \\\"/builtins/fonts/label.material\\\"\\n"
   "\"\n"

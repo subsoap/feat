@@ -22,3 +22,7 @@ key_trigger {
   input: KEY_SPACE
   action: "space"
 }
+key_trigger {
+  input: KEY_Z
+  action: "key_z"
+}
