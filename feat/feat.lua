@@ -105,9 +105,14 @@ end
 
 -- You should save data with feat.save() whenever you do normal game saves
 function M.save()
-	defsave.set(M.defsave_filename, "achievements", compress(M.achievements))
-	defsave.set(M.defsave_filename, "stats", compress(M.stats))
+	M.update_defsave()
 	defsave.save_all()	
+end
+
+-- You can update data into DefSave without saving right now
+function M.update_defsave()
+	defsave.set(M.defsave_filename, "achievements", compress(M.achievements))
+	defsave.set(M.defsave_filename, "stats", compress(M.stats))	
 end
 
 function M.final()
