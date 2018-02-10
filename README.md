@@ -9,7 +9,7 @@ You can use Feat in your own project by adding this project as a [Defold library
 Once added, you must require the main Lua module in your scripts via
 
 ```
-local defglot = require("feat.feat")
+local feat = require("feat.feat")
 ```
 
 You'll then want to add feat functions for init / update / final. See example for usage.

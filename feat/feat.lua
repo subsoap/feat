@@ -58,7 +58,6 @@ end
 
 function M.init()
 	M.feat_data = assert(loadstring(sys.load_resource(M.feat_data_filename)))()
-	--pprint(M.feat_data)
 	if not defsave.is_loaded(M.defsave_filename) then
 		defsave.load(M.defsave_filename)
 	end
@@ -68,11 +67,9 @@ function M.init()
 	defsteam.init()
 	defsteam.userstats.RequestCurrentStats()
 	M.setup()
-	--pprint(M.stats)
-	--pprint(M.achievements)
 end
 
--- Resets ALL achivement and stat data
+-- Resets ALL achivement and stat data (but not Steamworks data)
 function M.reset()
 	defsave.reset_to_default(M.defsave_filename)
 end
