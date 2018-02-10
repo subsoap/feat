@@ -6,3 +6,5 @@ Feat was made to simplify the process of adding stats and achievements to your g
 You will need to follow DefSteam instructions to properly include Steamworks libs in your project. This uses the testing Spacewar game for the example testing. Use Steam Achievement Manager to reset your Spacewar stats if necessary.
 
 See example for usage.
+
+TODO: Add support for iOS/Android native achievements/stats.
