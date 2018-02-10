@@ -13,6 +13,30 @@ M.verbose = false -- set to true to get way more information printed to console
 M.super_verbose = false -- if true enables printing modify / set of stats (which can clog up console otherwise)
 M.achievements = {} -- table of active achievements
 M.stats = {} -- table of active stats
+M.enable_obfuscation = false -- if true then all data saved and loaded will be XOR obfuscated - FASTER
+M.obfuscation_key = "feat" -- pick a unique obfuscation key, the longer the key for obfuscation the better
+
+-- xor key based obfuscation
+local function obfuscate(input, key)
+	if M.enable_obfuscation == false then return input end
+	key = key or M.obfuscation_key
+	local output = ""
+	local key_iterator = 1
+
+	local input_length = #input
+	local key_length = #key
+
+	for i=1, input_length do
+		local character = string.byte(input:sub(i,i))
+		if key_iterator >= key_length then key_iterator = 1 end -- cycle
+		local key_byte = string.byte(key:sub(key_iterator,key_iterator))
+		output = output .. string.char(bit.bxor( character , key_byte))
+
+		key_iterator = key_iterator + 1
+
+	end
+	return output
+end
 
 -- We don't want achievement data easy to edit
 -- So we use simple zlib inflate/deflate to make it
@@ -20,15 +44,19 @@ M.stats = {} -- table of active stats
 local function decompress(buffer)
 	if buffer == nil then return {} end
 	buffer = zlib.inflate(buffer)
-	return json.decode(buffer)
+	buffer = obfuscate(buffer, obfuscation_key)
+	buffer = json.decode(buffer)
+	return buffer
 end
 
 local function compress(buffer)
 	buffer = json.encode(buffer)
-	return zlib.deflate(buffer)
+	buffer = obfuscate(buffer, obfuscation_key)
+	buffer = zlib.deflate(buffer)
+	return buffer
 end
 
-function M.init(self)
+function M.init()
 	M.feat_data = assert(loadstring(sys.load_resource(M.feat_data_filename)))()
 	--pprint(M.feat_data)
 	if not defsave.is_loaded(M.defsave_filename) then
@@ -49,7 +77,7 @@ function M.reset()
 	defsave.reset_to_default(M.defsave_filename)
 end
 
-function M.update(self, dt)
+function M.update(dt)
 	if M.use_timer == true then
 		M.timer = M.timer + dt
 		if M.timer > M.update_frequency then
@@ -75,10 +103,15 @@ function M.check_stat(stat, value)
 	if M.stats[stat].value >= value then return true else return false end
 end
 
-function M.final(self)
+-- You should save data with feat.save() whenever you do normal game saves
+function M.save()
 	defsave.set(M.defsave_filename, "achievements", compress(M.achievements))
 	defsave.set(M.defsave_filename, "stats", compress(M.stats))
-	defsave.save_all()
+	defsave.save_all()	
+end
+
+function M.final()
+	M.save()
 end
 
 -- Sets up achievements/stats based on JSON file, creates any missing

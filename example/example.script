@@ -4,19 +4,20 @@ local feat = require("feat.feat")
 function init(self)
 	defsave.appname = "Feat"
 	defsave.load("feat")
+	feat.enable_obfuscation = true
 	feat.feat_data_filename = "/example/example_data.lua"
 	feat.verbose = true
 	feat.use_timer = true
-	feat.init(self)
+	feat.init()
 	msg.post(".", "acquire_input_focus")
 end
 
 function final(self)
-	feat.final(self)
+	feat.final()
 end
 
 function update(self, dt)
-	feat.update(self, dt)
+	feat.update(dt)
 	feat.modify_stat("TimePlayed", dt)
 end
 
