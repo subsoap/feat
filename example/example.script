@@ -2,7 +2,7 @@ local defsave = require("defsave.defsave")
 local feat = require("feat.feat")
 
 function init(self)
-	defsave.appname = "feat"
+	defsave.appname = "Feat"
 	defsave.load("feat")
 	feat.feat_data_filename = "/example/example_data.lua"
 	feat.verbose = true
@@ -41,6 +41,14 @@ function on_input(self, action_id, action)
 	end
 	if action_id == hash("key_5") and action.released then
 		feat.unlock_achievement("ACH_TRAVEL_FAR_SINGLE")
+	end
+
+	if action_id == hash("space") then
+		--print("pop")
+		feat.modify_stat("NumGames", 10)
+		feat.modify_stat("FeetTraveled", 10)
+		feat.check_data()
+		--pprint(feat.stats)
 	end
 	
 end

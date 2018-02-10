@@ -55,22 +55,24 @@ function M.update(self, dt)
 		if M.timer > M.update_frequency then
 			M.timer = M.timer - M.update_frequency
 			M.check_data()
-			if M.verbose == true then print("Feat: Checking Feat Data!") end
+			
 		end
 	end
 end
 
 function M.check_data()
+	if M.verbose == true then print("Feat: Checking Feat Data! ") end
 	for i,v in pairs(M.achievements) do
-		if v.stat == nil then return end
-		if v.unlocked == false and M.check_stat(v.stat, v.stat_amount) then
-			M.unlock_achievement(i)
+		if v.stat ~= nil then
+			if v.unlocked == false and M.check_stat(v.stat, v.stat_amount) then
+				M.unlock_achievement(i)
+			end
 		end
 	end
 end
 
 function M.check_stat(stat, value)
-	if M.stats[stat] >= value then return true else return false end
+	if M.stats[stat].value >= value then return true else return false end
 end
 
 function M.final(self)
