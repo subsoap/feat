@@ -102,6 +102,9 @@ end
 function M.check_stat(stat, value)
 	if M.stats[stat].value >= value then return true else return false end
 end
+function M.get_stat(stat)
+	return M.stats[stat].value
+end
 
 -- You should save data with feat.save() whenever you do normal game saves
 function M.save()
