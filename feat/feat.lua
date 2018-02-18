@@ -44,14 +44,14 @@ end
 local function decompress(buffer)
 	if buffer == nil then return {} end
 	buffer = zlib.inflate(buffer)
-	buffer = obfuscate(buffer, obfuscation_key)
+	buffer = obfuscate(buffer, M.obfuscation_key)
 	buffer = json.decode(buffer)
 	return buffer
 end
 
 local function compress(buffer)
 	buffer = json.encode(buffer)
-	buffer = obfuscate(buffer, obfuscation_key)
+	buffer = obfuscate(buffer, M.obfuscation_key)
 	buffer = zlib.deflate(buffer)
 	return buffer
 end
